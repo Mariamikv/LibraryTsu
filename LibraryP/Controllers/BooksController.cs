@@ -49,29 +49,7 @@ namespace LibraryP.Controllers
             }
             return View(book);
         }
-        [HttpGet]
-        public ActionResult Add()
-        {
-
-            return View();
-        }
-        [HttpPost]
-        public ActionResult Add(Book book)
-        {
-            string fileName = Path.GetFileNameWithoutExtension(book.ImageFile.FileName);
-            string extention = Path.GetExtension(book.ImageFile.FileName);
-            fileName = fileName + DateTime.Now.ToString("yymmssfff") + extention;
-            book.Image = "~/Image/" + fileName;
-            fileName = Path.Combine(Server.MapPath("~/Image/"), fileName);
-            book.ImageFile.SaveAs(fileName);
-            using (ApplicationDbContext db = new ApplicationDbContext())
-            {
-                db.Books.Add(book);
-                db.SaveChanges();
-            }
-            ModelState.Clear();
-            return View();
-        }
+        
 
         // GET: Books/Create
         [HttpGet]
@@ -86,17 +64,19 @@ namespace LibraryP.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BookId,Title,Author,PublishingHouse,Condition,Quantity,Image")] Book book)
+        public ActionResult Create( Book book)
         {
-           
-            if (ModelState.IsValid)
-            {
-                db.Books.Add(book);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            string fileName = Path.GetFileNameWithoutExtension(book.ImageFile.FileName);
+            string extention = Path.GetExtension(book.ImageFile.FileName);
+            fileName = fileName + DateTime.Now.ToString("yymmssfff") + extention;
+            book.Image = "~/Image/" + fileName;
+            fileName = Path.Combine(Server.MapPath("~/Image/"), fileName);
+            book.ImageFile.SaveAs(fileName);
+            db.Books.Add(book);
+            db.SaveChanges();
+            ModelState.Clear();
 
-            return View();
+            return RedirectToAction("Index");
         }
 
         // GET: Books/Edit/5
@@ -119,15 +99,25 @@ namespace LibraryP.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BookId,Title,Author,PublishingHouse,Condition,Quantity,Image")] Book book)
+        public ActionResult Edit(Book book)
         {
             if (ModelState.IsValid)
             {
+                string fileName = Path.GetFileNameWithoutExtension(book.ImageFile.FileName);
+                string extention = Path.GetExtension(book.ImageFile.FileName);
+                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extention;
+                book.Image = "~/Image/" + fileName;
+                fileName = Path.Combine(Server.MapPath("~/Image/"), fileName);
+                book.ImageFile.SaveAs(fileName);
+                
+                
+
+                
                 db.Entry(book).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                ModelState.Clear();
             }
-            return View(book);
+            return RedirectToAction("Index");
         }
 
         // GET: Books/Delete/5
