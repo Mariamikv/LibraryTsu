@@ -10,6 +10,7 @@ using LibraryP.Models;
 
 namespace LibraryP.Controllers
 {
+    [Authorize]
     public class CustomersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -41,9 +42,7 @@ namespace LibraryP.Controllers
             return View();
         }
 
-        // POST: Customers/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CustomerId,Name,Surname,Gender,IdNumber,DateOfBrith,PhoneNumber")] Customer customer)
@@ -73,9 +72,6 @@ namespace LibraryP.Controllers
             return View(customer);
         }
 
-        // POST: Customers/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "CustomerId,Name,Surname,Gender,IdNumber,DateOfBrith,PhoneNumber")] Customer customer)
