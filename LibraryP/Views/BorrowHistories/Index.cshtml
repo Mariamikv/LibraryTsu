@@ -41,9 +41,9 @@
             @Html.DisplayFor(modelItem => item.ReturnDate)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.BorrowHistoryId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.BorrowHistoryId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.BorrowHistoryId })
+            @Html.ActionLink("Edit", "Edit", new { id=item.BorrowHistoryId }, new { @class = "btn btn-info" }) 
+            @Html.ActionLink("Details", "Details", new { id=item.BorrowHistoryId }, new { @class = "btn btn-info" }) 
+            @Html.ActionLink("Delete", "Delete", new { id=item.BorrowHistoryId }, new { @class = "btn btn-info" })
         </td>
     </tr>
 }

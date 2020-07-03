@@ -56,7 +56,10 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Image)
+            @if (!string.IsNullOrWhiteSpace(@Model.Image))
+            {
+                <img src="@Url.Content(@Model.Image)" alt="ups" style="width:60px;height:60px;" />
+            }
         </dd>
 
     </dl>
